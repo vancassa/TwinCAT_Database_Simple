@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<Configuration>
+	<StartUp>Manual</StartUp>
+	<Databases>
+		<Database Type="Sequal-Server" ValueType="Double">
+			<DBId>1</DBId>
+			<DBServer>VANESSAC-NB\SQLEXPRESS</DBServer>
+			<DBProvider>SQLOLEDB</DBProvider>
+			<DBUrl>mydb</DBUrl>
+			<DBTable>myTable</DBTable>
+		</Database>
+	</Databases>
+	<AdsDevices>
+		<AdsDevice>
+			<AdsId>1</AdsId>
+			<NetID>
+			</NetID>
+			<Port>852</Port>
+			<Timeout>2000</Timeout>
+			<ADSReadWriteSetting>1</ADSReadWriteSetting>
+		</AdsDevice>
+	</AdsDevices>
+	<SymbolGroups />
+</Configuration>

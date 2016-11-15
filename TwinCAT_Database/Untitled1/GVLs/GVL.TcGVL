@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <GVL Name="GVL" Id="{0de0043b-907d-45a3-a9f1-a04d3d44455f}">
+    <Declaration><![CDATA[
+VAR_GLOBAL
+	rTemp1 : REAL;
+	rTemp2 : REAL;
+	rTemp3 : REAL;
+	bToggle : INT;
+	sComment: STRING;
+	tStoreRecord : TIME := T#5000MS;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

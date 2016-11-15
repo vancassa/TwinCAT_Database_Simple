@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <POU Name="DatabaseRecord" Id="{9d9db9b5-050c-405c-86b5-723f1f75410c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM DatabaseRecord
+VAR
+	tTimeout: TIME := T#5s;
+	bExecute: BOOL;
+	nID: LINT;
+	bInit: BOOL := TRUE;
+	nState: INT;
+	
+	fbFormatString: FB_FormatString;
+	fbDBRecordSelect: FB_DBRecordArraySelect;
+	fbDBOpen : FB_DBConnectionOpen;
+	trigger : R_TRIG;
+	timer: TON := (IN:= TRUE);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*------ Check connection to the database ------*)
+IF bInit THEN
+	fbDBOpen(
+		hDBID:= 1, 
+		bExecute:= TRUE, 
+		tTimeout:= T#5S);
+	
+	(*------ Throw error if there's any ------*)
+	trigger(CLK:= fbDBOpen.bError, Q=> );
+	IF trigger.Q THEN
+		ADSLOGDINT(msgCtrlMask:= ADSLOG_MSGTYPE_MSGBOX, msgFmtStr:= 'Error connecting to database with error ID: %d', dintArg:=fbDBOpen.nErrID );
+		RETURN;
+	END_IF
+	
+	(*------ Continue if there's no problem ------*)
+	IF NOT fbDBOpen.bBusy AND NOT fbDBOpen.bError THEN
+		ADSLOGSTR(msgCtrlMask:= ADSLOG_MSGTYPE_LOG, msgFmtStr:= 'Database connection is good', strArg:= '');
+		bInit := FALSE;
+	END_IF
+END_IF
+
+
+
+(*------ Add data to database every tStoreRecord time ------*)
+timer(IN:= , PT:= tStoreRecord, Q=> , ET=> );
+
+fbDBRecordSelect(
+	sNetID:= , 
+	hDBID:= 1, 
+	pCmdAddr:= , 
+	cbCmdSize:= , 
+	nStartIndex:= 0, 
+	nRecordCount:= 1, 
+	pDestAddr:= ADR(nID), 
+	cbRecordArraySize:= SIZEOF(nID), 
+	bExecute:= , 
+	tTimeout:= tTimeout);
+	
+CASE nState OF 
+	0:
+	fbFormatString(
+		sFormat:= 'INSERT INTO [myTable] ([Timestamp],[Temperature1],[Temperature2],[Temperature3], [Status], [Comment]) OUTPUT INSERTED.ID VALUES(CURRENT_TIMESTAMP,%0.5f,%0.5f,%0.5f,%d,$'%s$');',  
+		arg1:= F_REAL(rTemp1),
+		arg2:= F_REAL(rTemp2),
+		arg3:= F_REAL(rTemp3),
+		arg4:= F_INT(bToggle),
+		arg5:= F_STRING(sComment));
+		
+	IF NOT fbFormatString.bError AND fbFormatString.sOut <> '' THEN
+		nState := 10;
+	END_IF
+	
+	
+	10:
+	IF timer.Q THEN
+		fbDBRecordSelect.pCmdAddr := ADR(fbFormatString.sOut);
+		fbDBRecordSelect.cbCmdSize := SIZEOF(fbFormatString.sOut);
+		fbDBRecordSelect.bExecute := TRUE;
+		timer.IN := FALSE;
+		nState := 20;
+	END_IF
+	
+	
+	20:
+	IF NOT fbDBRecordSelect.bBusy AND NOT fbDBRecordSelect.bError THEN
+		fbDBRecordSelect.bExecute := FALSE;
+		timer.IN := TRUE;
+		nState := 0;
+	END_IF
+END_CASE
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

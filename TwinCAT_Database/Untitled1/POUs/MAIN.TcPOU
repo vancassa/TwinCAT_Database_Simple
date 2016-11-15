@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <POU Name="MAIN" Id="{dbbd06f5-b8a2-4489-b113-eee6e7426548}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	randomize : DRAND;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*------ Give random values for temperature ------*)
+randomize(Seed:= 1, Num=> );
+rTemp1 := randomize.Num * 100;
+randomize(Seed:= 1, Num=> );
+rTemp2 := randomize.Num * 100;
+randomize(Seed:= 1, Num=> );
+rTemp3 := randomize.Num * 100;
+
+
+DatabaseRecord();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
