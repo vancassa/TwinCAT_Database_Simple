@@ -6,7 +6,7 @@ This is an example of storing data from TwinCAT to MS SQL database, using TF6420
 
 1. Setup your MS SQL database. ID is primary key and identifier.
 
-![alt tag](https://puu.sh/siG4s/c68a244b87.png)
+![alt tag](https://puu.sh/siU53/a3ac68d7ae.png)
 
 2. Setup your TwinCAT Database Configurator (Start Menu > Beckhoff > TwinCAT3 Functions > TF6420 Database Server > Configurator)
 
@@ -21,13 +21,14 @@ This is an example of storing data from TwinCAT to MS SQL database, using TF6420
 ![alt tag](https://puu.sh/siOvO/b3e76953dd.png)
 
 
-
+  
 ## How it works
 
 What's happening inside the program:
 
 1. The MAIN program populates the dummy temperature variable with random values.
 2. The DatabaseRecord program firstly checked if there is connection to the database by executing FB_DBConnectionOpen function block. Then, it construct the SQL INSERT command and execute it using FB_DBRecordArraySelect function block. The ID of the latest record is stored in 'nId' variable.
+3. Using the ID of the latest record, the data is retrieved back to PLC variable 'stRecord'
 
 TwinCAT Database Server function blocks:
 https://infosys.beckhoff.com/espanol.php?content=../content/1034/tcdbserver/html/tcdbserver_intro%20lib.htm&id=21637
