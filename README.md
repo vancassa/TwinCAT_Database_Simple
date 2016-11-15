@@ -1,5 +1,5 @@
 # TwinCAT Database Example
-This is an example of storing data from TwinCAT to MS SQL database, using TF6420 TwinCAT Database Server
+This is an example of storing and retrieving data between TwinCAT and MS SQL database, using TF6420 TwinCAT Database Server
 
 
 ## Usage

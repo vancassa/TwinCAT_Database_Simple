@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+  <POU Name="CheckConnection" Id="{83c8531b-5d90-4025-8449-55b2962d4ff2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CheckConnection
+VAR
+	bInit: BOOL := TRUE;
+	fbDBOpen : FB_DBConnectionOpen;
+	trigger : R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bInit THEN
+	fbDBOpen(
+		hDBID:= 1, 
+		bExecute:= TRUE, 
+		tTimeout:= T#5S);
+	
+	(*------ Throw error if there's any ------*)
+	trigger(CLK:= fbDBOpen.bError, Q=> );
+	IF trigger.Q THEN
+		ADSLOGDINT(msgCtrlMask:= ADSLOG_MSGTYPE_MSGBOX, msgFmtStr:= 'Error connecting to database with error ID: %d', dintArg:=fbDBOpen.nErrID );
+		RETURN;
+	END_IF
+	
+	(*------ Continue if there's no problem ------*)
+	IF NOT fbDBOpen.bBusy AND NOT fbDBOpen.bError THEN
+		fbDBOpen.bExecute := FALSE;
+		ADSLOGSTR(msgCtrlMask:= ADSLOG_MSGTYPE_LOG, msgFmtStr:= 'Database connection is good', strArg:= '');
+		bInit := FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

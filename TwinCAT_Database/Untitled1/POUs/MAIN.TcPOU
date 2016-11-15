@@ -4,6 +4,8 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	randomize : DRAND;
+	
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -15,8 +17,10 @@ rTemp2 := randomize.Num * 100;
 randomize(Seed:= 1, Num=> );
 rTemp3 := randomize.Num * 100;
 
-
-DatabaseRecord();]]></ST>
+CheckConnection();
+DatabaseRecord();
+DatabaseRetrieve();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
