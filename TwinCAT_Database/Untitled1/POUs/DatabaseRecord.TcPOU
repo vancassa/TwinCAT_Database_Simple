@@ -36,6 +36,16 @@ fbFormatString(
 		arg3:= F_REAL(rTemp3),
 		arg4:= F_INT(bToggle),
 		arg5:= F_STRING(sComment));
+(*
+//FORMAT FOR MYSQL 
+fbFormatString(
+		sFormat:= 'INSERT INTO myTable (Timestamp,Temperature1,Temperature2,Temperature3, Status, Comment) VALUES(CURRENT_TIMESTAMP,%0.5f,%0.5f,%0.5f,%d,$'%s$'); SELECT LAST_INSERT_ID();',  
+		arg1:= F_REAL(rTemp1),
+		arg2:= F_REAL(rTemp2),
+		arg3:= F_REAL(rTemp3),
+		arg4:= F_INT(bToggle),
+		arg5:= F_STRING(sComment));
+*)
 
 CASE nState OF 
 	0:

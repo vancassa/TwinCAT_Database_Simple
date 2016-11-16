@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <Configuration>
 	<StartUp>Manual</StartUp>
+	<PwdInfos>tZuYPxhe+G5NKHWLYSZE+NiFAINdlcBgtIUVD+KtAff1ofKFk1lKYroy6JTkCOdeoJ9VcuLwOdxw+BMtihvpCZD4QlMLDcB9EKZGzHOFPvg=</PwdInfos>
 	<Databases>
 		<Database Type="Sequal-Server" ValueType="Double">
 			<DBId>1</DBId>
@@ -8,6 +9,22 @@
 			<DBProvider>SQLOLEDB</DBProvider>
 			<DBUrl>mydb</DBUrl>
 			<DBTable>myTable</DBTable>
+		</Database>
+		<Database Type="NET_MySQL" ValueType="Double">
+			<DBId>2</DBId>
+			<DBServer>localhost</DBServer>
+			<DBDatabase>my_db</DBDatabase>
+			<DBDriver>
+			</DBDriver>
+			<DBUserId>root</DBUserId>
+			<DBPort>3306</DBPort>
+			<DBProtocol>
+			</DBProtocol>
+			<DBScheme>
+			</DBScheme>
+			<DBSequence>
+			</DBSequence>
+			<DBTable>mytable</DBTable>
 		</Database>
 	</Databases>
 	<AdsDevices>
