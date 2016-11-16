@@ -44,6 +44,10 @@ Setup your database
 
 ![alt tag](https://puu.sh/sjEsv/bb17f5307c.png)
 
+Setup TwinCAT Database Configurator
+
+![alt tag](https://puu.sh/sjG5o/6ed74ed9ec.png)
+
 MySQL uses different syntax with MS SQL. In DatabaseRecord program, change the fbFormatString part to be:
 
 ```
