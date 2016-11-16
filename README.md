@@ -38,4 +38,22 @@ Error codes:
 https://infosys.beckhoff.com/espanol.php?content=../content/1034/tcdbserver/html/tcdbserver_errorcodes.htm&id=21694
 
 
+## Usage with MySQL
+
+Setup your database
+
+![alt tag](https://puu.sh/sjEsv/bb17f5307c.png)
+
+MySQL uses different syntax with MS SQL. In DatabaseRecord program, change the fbFormatString part to be:
+
+```
+fbFormatString(
+		sFormat:= 'INSERT INTO myTable (Timestamp,Temperature1,Temperature2,Temperature3, Status, Comment) VALUES(CURRENT_TIMESTAMP,%0.5f,%0.5f,%0.5f,%d,$'%s$'); SELECT LAST_INSERT_ID();',  
+		arg1:= F_REAL(rTemp1),
+		arg2:= F_REAL(rTemp2),
+		arg3:= F_REAL(rTemp3),
+		arg4:= F_INT(bToggle),
+		arg5:= F_STRING(sComment));
+```
+
 
