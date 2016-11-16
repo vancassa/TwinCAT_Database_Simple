@@ -27,7 +27,8 @@ This is an example of storing and retrieving data between TwinCAT and MS SQL dat
 What's happening inside the program:
 
 1. The MAIN program populates the dummy temperature variable with random values.
-2. The DatabaseRecord program firstly checked if there is connection to the database by executing FB_DBConnectionOpen function block. Then, it construct the SQL INSERT command and execute it using FB_DBRecordArraySelect function block. The ID of the latest record is stored in 'nId' variable.
+2. The CheckConnection program checks if there's connection to the database using FB_DBConnectionOpen function block.
+3. The DatabaseRecord program constructs the SQL INSERT command and executes it using FB_DBRecordArraySelect function block. The ID of the latest record is stored in 'nId' global variable.
 3. Using the ID of the latest record, the data is retrieved back to PLC variable 'stRecord'
 
 TwinCAT Database Server function blocks:
