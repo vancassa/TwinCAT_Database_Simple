@@ -4,7 +4,7 @@ This is an example of storing and retrieving data between TwinCAT and MS SQL dat
 
 ## Usage
 
-1. Setup your MS SQL database. ID is identifier.
+Setup your MS SQL database. ID is identifier.
 
 ```
 CREATE TABLE myTable(
@@ -18,7 +18,7 @@ CREATE TABLE myTable(
 )
 ```
 
-2. Setup your TwinCAT Database Configurator (Start Menu > Beckhoff > TwinCAT3 Functions > TF6420 Database Server > Configurator)
+Setup your TwinCAT Database Configurator (Start Menu > Beckhoff > TwinCAT3 Functions > TF6420 Database Server > Configurator)
 
 ![alt tag](https://puu.sh/siP0N/ed9876f89e.png)
 
@@ -26,7 +26,8 @@ CREATE TABLE myTable(
 
 (Might need to change the AdsPort number accordingly to the PLC program)
 
-3. Run the TwinCAT program. Random values will be stored to the database every 5 seconds. The latest record ID is stored in "nId" variable.
+
+Run the TwinCAT program. Random values will be stored to the database every 5 seconds. The latest record ID is stored in "nId" variable.
 
 ![alt tag](https://puu.sh/siOvO/b3e76953dd.png)
 
