@@ -4,9 +4,19 @@ This is an example of storing and retrieving data between TwinCAT and MS SQL dat
 
 ## Usage
 
-1. Setup your MS SQL database. ID is primary key and identifier.
+1. Setup your MS SQL database. ID is identifier.
 
-![alt tag](https://puu.sh/siU53/a3ac68d7ae.png)
+```
+CREATE TABLE myTable(
+   ID    bigint IDENTITY(1,1) NOT NULL,
+   Timestamp datetime,
+   Temperature1    float,
+   Temperature2    float,
+   Temperature3	float,
+   Status	bit,
+   Comment	nvarchar(50)
+)
+```
 
 2. Setup your TwinCAT Database Configurator (Start Menu > Beckhoff > TwinCAT3 Functions > TF6420 Database Server > Configurator)
 
