@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4020.12">
   <POU Name="DatabaseRecord" Id="{9d9db9b5-050c-405c-86b5-723f1f75410c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM DatabaseRecord
 VAR
@@ -47,6 +47,17 @@ fbFormatString(
 		arg5:= F_STRING(sComment));
 *)
 
+(*
+//FORMAT FOR SQLite 
+fbFormatString(
+		sFormat:= 'INSERT INTO [myTable] ([Timestamp],[Temperature1],[Temperature2],[Temperature3], [Status], [Comment]) VALUES(CURRENT_TIMESTAMP,%0.5f,%0.5f,%0.5f,%d,$'%s$'); SELECT LAST_INSERT_ROWID();',  
+		arg1:= F_REAL(rTemp1),
+		arg2:= F_REAL(rTemp2),
+		arg3:= F_REAL(rTemp3),
+		arg4:= F_INT(bToggle),
+		arg5:= F_STRING(sComment));
+*)
+
 CASE nState OF 
 	0:
 	IF NOT fbFormatString.bError AND fbFormatString.sOut <> '' THEN
@@ -71,5 +82,15 @@ CASE nState OF
 END_CASE
 ]]></ST>
     </Implementation>
+    <LineIds Name="DatabaseRecord">
+      <LineId Id="3" Count="30" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="71" Count="7" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="35" Count="22" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
